@@ -1,6 +1,6 @@
 {
   "version": "2026.1",
-  "source": "CarTaxHub Static Dataset",
+  "source": "Research-compiled baseline dataset",
   "updatedAt": "2026-10-06",
   "notes": "State sales tax rates and typical dealer documentation and title/registration fees for automotive purchases. Doc fees marked as capped reflect state statutory limits.",
   "states": {

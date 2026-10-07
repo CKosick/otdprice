@@ -16,7 +16,7 @@ All user preferences (such as your chosen home state override and per-site enabl
 - If you uninstall the extension, this local storage is automatically erased by your browser.
 
 ## No Network Requests
-All automotive tax and fee calculations run 100% locally using a static, bundled dataset derived from CarTaxHub.
+All automotive tax and fee calculations run 100% locally using a static, bundled dataset of research-compiled baseline estimates.
 The extension makes **zero** outbound HTTP/HTTPS requests to any external server or API. You can verify this anytime using the Chrome DevTools Network tab.
 
 ## Third-Party Services & Analytics
@@ -27,13 +27,12 @@ OTD Price contains:
 - **No external scripts** or CDNs
 
 ## Open Source
-OTD Price is fully open source. You can audit the complete source code, manifest, and calculation logic on GitHub.
+OTD Price is fully open source. You can audit the complete source code, manifest, and calculation logic on GitHub at https://github.com/CKosick/otdprice.
 
 ## Changes to This Policy
 Because OTD Price does not collect data, our privacy principles will not change. If any updates are made to support future browser requirements, they will be documented in our public release notes.
 
 ## Contact
 If you have any questions or feedback regarding this privacy policy, please contact:
-- **Project Lead:** Cliff / CarTaxHub Team
-- **Website:** https://cartaxhub.com
-- **Repository Issues:** https://github.com/cartaxhub/otd-price/issues
+- **Repository Issues:** https://github.com/CKosick/otdprice/issues
+- **Repository:** https://github.com/CKosick/otdprice

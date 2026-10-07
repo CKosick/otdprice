@@ -1,10 +1,10 @@
 // Bundled static tax dataset for OTD Price extension
 // Self-contained static module. Zero outbound requests.
-// Source: CarTaxHub (data/state-tax-rates.json)
+// Source: Research-compiled baseline estimates (data/state-tax-rates.json)
 (function() {
   const TAX_DATA = {
     "version": "2026.1",
-    "source": "CarTaxHub Static Dataset",
+    "source": "Research-compiled baseline dataset",
     "updatedAt": "2026-10-06",
     "notes": "State sales tax rates and typical dealer documentation and title/registration fees for automotive purchases. Doc fees marked as capped reflect state statutory limits.",
     "states": {

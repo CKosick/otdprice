@@ -215,7 +215,7 @@
           </div>
         </div>
         <div class="otd-popover-footer">
-          Rates & fees via <strong>CarTaxHub</strong> dataset. Actual local county tax & registration may vary.
+          Rates & fees: research-compiled baseline estimates. Actual taxes and fees vary by county and dealer.
         </div>
       </div>
     `;

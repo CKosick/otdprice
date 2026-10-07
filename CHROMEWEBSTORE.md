@@ -20,7 +20,7 @@ Key Features:
 - Complete Cost Breakdown: Click or hover any OTD badge to inspect the itemized math: asking price, state automotive sales tax, dealer doc fee, and title/registration estimates.
 - Buyer State Override: Buying out of state? Use the quick popup selector to calculate taxes based on your home registration state rather than the seller's state.
 - Per-Marketplace Controls: Easily toggle the overlay on or off for individual websites.
-- Powered by CarTaxHub: Bakes in accurate state-by-state tax rates, statutory doc fee caps, and typical dealer fee benchmarks from CarTaxHub.
+- Research-Compiled Baseline Estimates: Bakes in state-by-state motor vehicle sales tax rates, statutory doc fee caps, and typical dealer fee benchmarks based on public DMV and automotive industry data.
 - 100% Private & Client-Side: Zero network calls, zero tracking, zero analytics, and no accounts required. All tax calculations run entirely on your device using a bundled local dataset.
 
 How to Use:
@@ -34,7 +34,7 @@ Privacy & Trust Guarantee:
 Trust is our core product. OTD Price is completely open source. We do not collect your search history, we do not require an account, and we do not make outbound network requests. All math runs locally in your browser.
 
 Support & Data Updates:
-Tax rules and fee caps are maintained and updated via CarTaxHub (cartaxhub.com). For support, feature requests, or open-source contributions, visit our GitHub repository.
+Estimates are based on research-compiled baseline data and standard statutory caps. For support, feature requests, or open-source contributions, visit our GitHub repository (https://github.com/CKosick/otdprice).
 
 **Category** [REQUIRED]  
 Shopping
@@ -104,7 +104,7 @@ English
 ## Privacy Policy
 
 **Privacy Policy URL** [REQUIRED if collecting data, RECOMMENDED otherwise]  
-`https://cartaxhub.com/privacy/otd-price` (or public GitHub raw / GitHub Pages link to `privacy.html`)
+`https://github.com/CKosick/otdprice/blob/main/PRIVACY.md`
 
 ---
 
@@ -119,16 +119,16 @@ English
 ## Developer Info
 
 **Publisher Name** [REQUIRED]  
-CarTaxHub
+CKosick
 
 **Contact Email** [REQUIRED]  
-support@cartaxhub.com
+cliff@cartaxhub.com
 
 **Support URL / Email** [RECOMMENDED]  
-https://github.com/cartaxhub/otd-price/issues
+https://github.com/CKosick/otdprice/issues
 
 **Homepage URL** [RECOMMENDED]  
-https://cartaxhub.com
+https://github.com/CKosick/otdprice
 
 ---
 

@@ -24,7 +24,7 @@ OTDPrice/
 ├── privacy.html                   # Hostable HTML privacy policy page
 ├── README.md                      # Architecture, installation & developer guide
 ├── data/
-│   ├── state-tax-rates.json       # Swappable 50-state + DC CarTaxHub tax & fees dataset
+│   ├── state-tax-rates.json       # Swappable 50-state + DC baseline tax & fees dataset
 │   ├── tax-data.js                # Self-contained bundled tax dataset module
 │   └── README.md                  # Dataset update & schema documentation
 ├── content/
