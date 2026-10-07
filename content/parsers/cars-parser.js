@@ -11,8 +11,10 @@
     },
 
     isDetailPage() {
-      return window.location.pathname.includes('/vehicledetail') ||
-             Boolean(document.querySelector('.vdp-details, .vdp-container, #vdp-content, [data-qa="vdp-page"]'));
+      const path = (typeof window !== 'undefined' && window.location) ? window.location.pathname : '';
+      const hasVdpSelector = typeof document !== 'undefined' &&
+        Boolean(document.querySelector('.vdp-details, .vdp-container, #vdp-content, [data-qa="vdp-page"]'));
+      return path.includes('/vehicledetail') || hasVdpSelector;
     },
 
     parseListings(root = document) {

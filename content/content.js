@@ -94,12 +94,23 @@
     // Global listener to dismiss popovers when clicking outside
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.otd-badge-container')) {
-        document.querySelectorAll('.otd-popover.otd-visible').forEach(p => p.classList.remove('otd-visible'));
+        closeAllPopovers();
+      }
+    });
+
+    // Global listener to dismiss popovers on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopovers();
       }
     });
   }
 
-  // 3. Process the current DOM
+  function closeAllPopovers() {
+    document.querySelectorAll('.otd-popover.otd-visible').forEach(p => p.classList.remove('otd-visible'));
+  }
+
+  // 3. Process the current DOM with requestAnimationFrame batching
   function processPage() {
     if (!isSiteEnabled || !activeParser) return;
 
@@ -118,13 +129,16 @@
     if (!listing.priceEl || !listing.price) return;
 
     // Check if container already exists
-    const existing = listing.priceEl.parentElement.querySelector(`.otd-badge-container[data-listing-id="${listing.id}"]`);
+    const parent = listing.priceEl.parentElement;
+    if (!parent) return;
+
+    const existing = parent.querySelector(`.otd-badge-container[data-listing-id="${listing.id}"]`);
     if (existing) {
       return;
     }
 
     const calculator = globalThis.otdCalculator;
-    const effectiveState = currentSettings.buyerStateOverride || listing.state || 'TX'; // Sensible fallback if no state detected
+    const effectiveState = currentSettings.buyerStateOverride || listing.state || 'TX'; // Sensible fallback
     const isOverride = Boolean(currentSettings.buyerStateOverride);
     const breakdown = calculator.calculate(listing.price, effectiveState);
 
@@ -138,20 +152,31 @@
 
     badgeContainer.innerHTML = createBadgeHtml(breakdown, isOverride, listing.state);
 
-    // Wire up click and hover interactions
+    // Mark parent container to avoid duplicate scans
+    if (listing.containerEl) {
+      listing.containerEl.setAttribute('data-otd-processed', 'true');
+    }
+
+    // Wire up click and keyboard interactions
     const pill = badgeContainer.querySelector('.otd-badge-pill');
     const popover = badgeContainer.querySelector('.otd-popover');
 
-    pill.addEventListener('click', (e) => {
+    const togglePopover = (e) => {
       e.preventDefault();
       e.stopPropagation();
 
-      // Close other open popovers
       document.querySelectorAll('.otd-popover.otd-visible').forEach(p => {
         if (p !== popover) p.classList.remove('otd-visible');
       });
 
       popover.classList.toggle('otd-visible');
+    };
+
+    pill.addEventListener('click', togglePopover);
+    pill.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        togglePopover(e);
+      }
     });
 
     popover.addEventListener('click', (e) => {
@@ -174,13 +199,13 @@
       : (detectedState ? `${breakdown.stateCode}` : `${breakdown.stateCode} (Est.)`);
 
     return `
-      <div class="otd-badge-pill" title="Click for Out-The-Door price breakdown">
+      <div class="otd-badge-pill" role="button" tabindex="0" title="Click for Out-The-Door price breakdown">
         <span class="otd-badge-label">OTD Est:</span>
         <span class="otd-badge-price">${calculator.formatCurrency(breakdown.totalOTD)}</span>
         <span class="otd-badge-state">${breakdown.stateCode}</span>
         <span class="otd-badge-info-icon">i</span>
       </div>
-      <div class="otd-popover">
+      <div class="otd-popover" role="tooltip">
         <div class="otd-popover-header">
           <span class="otd-popover-title">
             Out-The-Door Breakdown
@@ -240,13 +265,20 @@
       const pill = container.querySelector('.otd-badge-pill');
       const popover = container.querySelector('.otd-popover');
 
-      pill.addEventListener('click', (e) => {
+      const togglePopover = (e) => {
         e.preventDefault();
         e.stopPropagation();
         document.querySelectorAll('.otd-popover.otd-visible').forEach(p => {
           if (p !== popover) p.classList.remove('otd-visible');
         });
         popover.classList.toggle('otd-visible');
+      };
+
+      pill.addEventListener('click', togglePopover);
+      pill.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          togglePopover(e);
+        }
       });
 
       popover.addEventListener('click', (e) => {
@@ -261,14 +293,28 @@
   // 7. Remove all overlays when site is disabled
   function removeAllOverlays() {
     document.querySelectorAll('.otd-badge-container').forEach(el => el.remove());
+    document.querySelectorAll('[data-otd-processed="true"]').forEach(el => el.removeAttribute('data-otd-processed'));
   }
 
-  // 8. Mutation Observer for SPAs & Infinite Scrolling
+  // 8. Optimized Mutation Observer for SPAs & Infinite Scrolling
   function setupObserver() {
     if (observer) observer.disconnect();
 
     let debounceTimer = null;
-    observer = new MutationObserver(() => {
+    observer = new MutationObserver((mutations) => {
+      // Ignore mutations created by our own badges
+      const isOurMutation = mutations.every(m => {
+        if (m.target && m.target.classList && m.target.classList.contains('otd-badge-container')) return true;
+        if (m.addedNodes) {
+          for (const node of m.addedNodes) {
+            if (node.nodeType === 1 && node.classList && node.classList.contains('otd-badge-container')) return true;
+          }
+        }
+        return false;
+      });
+
+      if (isOurMutation) return;
+
       if (debounceTimer) clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
         processPage();

@@ -11,9 +11,10 @@
     },
 
     isDetailPage() {
-      return window.location.pathname.includes('/vehicledetails') ||
-             window.location.pathname.includes('/cars-for-sale/vehicledetails') ||
-             Boolean(document.querySelector('[data-cmp="vdpContent"], [data-qa="vdp-page"], #vdp-overview'));
+      const path = (typeof window !== 'undefined' && window.location) ? window.location.pathname : '';
+      const hasVdpSelector = typeof document !== 'undefined' &&
+        Boolean(document.querySelector('[data-cmp="vdpContent"], [data-qa="vdp-page"], #vdp-overview'));
+      return path.includes('/vehicledetails') || path.includes('/cars-for-sale/vehicledetails') || hasVdpSelector;
     },
 
     parseListings(root = document) {

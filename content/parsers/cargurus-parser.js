@@ -11,9 +11,10 @@
     },
 
     isDetailPage() {
-      return window.location.pathname.includes('/viewDetails') ||
-             window.location.pathname.includes('/detail/') ||
-             Boolean(document.querySelector('[data-testid="vdp-page"], #vdp-content, [data-cg-vdp]'));
+      const path = (typeof window !== 'undefined' && window.location) ? window.location.pathname : '';
+      const hasVdpSelector = typeof document !== 'undefined' &&
+        Boolean(document.querySelector('[data-testid="vdp-page"], #vdp-content, [data-cg-vdp]'));
+      return path.includes('/viewDetails') || path.includes('/detail/') || hasVdpSelector;
     },
 
     parseListings(root = document) {

@@ -1,0 +1,26 @@
+name: Test & Build Extension
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Run Extension Packaging
+      run: node scripts/package-extension.js
+
+    - name: Run Comprehensive Test Suite
+      run: node test/run-tests.js

@@ -7,3 +7,5 @@ desktop.ini
 *.log
 scratch/
 tmp/
+dist/
+

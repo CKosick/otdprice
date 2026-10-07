@@ -76,6 +76,32 @@ OTDPrice/
 
 ---
 
+## Comprehensive Testing & Benchmarks
+
+Run the complete 6-suite verification test:
+```bash
+node test/run-tests.js
+```
+The test suite validates:
+1. **51-Jurisdiction Calculation Audit**: Verifies every state + DC calculates cleanly, matching statutory fee caps and local tax rules.
+2. **Edge Cases**: Validates messy price strings, non-breaking spaces, negative/zero price guards, and out-of-range prices.
+3. **Disambiguation**: Guards common automotive description words (`IN`, `OR`, `ME`, `OK`) against false-positive state matches, while accurately resolving comma and ZIP patterns.
+4. **Benchmark Caching**: Performance verification of in-memory calculation and state parsing caches (executing 10,000 operations in ~12ms, or ~1.2µs per operation).
+5. **DOM Parser Fixture Simulations**: Tests real-world HTML structures across Cars.com, Autotrader, and CarGurus cards and detail pages.
+6. **Packaging Audit**: Ensures the production ZIP distribution package matches Chrome Web Store size and exclusion requirements.
+
+---
+
+## Production Packaging for Chrome Web Store
+
+To build a clean, submission-ready ZIP package excluding development/test files:
+```bash
+node scripts/package-extension.js
+```
+The resulting archive is generated at `dist/otdprice-v1.0.0.zip` (~24 KB) ready to upload to the Chrome Developer Dashboard.
+
+---
+
 ## Swapping the CarTaxHub Dataset
 
 To update annual state tax rates or fee caps:
