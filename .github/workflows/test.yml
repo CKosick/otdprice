@@ -8,16 +8,21 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: ['20']
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup Node.js
+    - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: ${{ matrix.node-version }}
 
     - name: Run Extension Packaging
       run: node scripts/package-extension.js

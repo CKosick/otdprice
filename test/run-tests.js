@@ -282,9 +282,21 @@ console.log('[PASS] CarGurus card fixture correctly extracted $19,800 in OH.\n')
 // ---------------------------------------------------------------------
 console.log('>>> [SUITE 6] Production Packaging Verification');
 const distZip = path.join(__dirname, '../dist/otdprice-v1.0.0.zip');
+if (!fs.existsSync(distZip)) {
+  require('../scripts/package-extension.js');
+}
 assert(fs.existsSync(distZip), 'Production zip archive must exist in dist/');
 const zipStat = fs.statSync(distZip);
-console.log(`[PASS] Production zip verified: ${(zipStat.size / 1024).toFixed(1)} KB (clean, under 50KB).\n`);
+assert(zipStat.size > 1000 && zipStat.size < 50000, 'Zip size should be between 1KB and 50KB');
+
+// Verify standard PKZip magic number 0x04034b50
+const fd = fs.openSync(distZip, 'r');
+const magicBuf = Buffer.alloc(4);
+fs.readSync(fd, magicBuf, 0, 4, 0);
+fs.closeSync(fd);
+assert.strictEqual(magicBuf.readUInt32LE(0), 0x04034b50, 'Must be a valid PKZip format archive');
+
+console.log(`[PASS] Production zip verified: ${(zipStat.size / 1024).toFixed(1)} KB with valid PKZip header.\n`);
 
 console.log('====================================================');
 console.log('   ALL 6 COMPREHENSIVE TEST SUITES PASSED (100%)');
