@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTD Price Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="logo-group">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 17H5V7H19V17Z" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 11H9" stroke="#34D399" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 8V14" stroke="#34D399" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="7.5" cy="17.5" r="2.5" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+            <circle cx="16.5" cy="17.5" r="2.5" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="popup-title">OTD Price</h1>
+          <p class="popup-subtitle">True Out-The-Door Car Pricing</p>
+        </div>
+      </div>
+      <span class="version-badge">v1.0.0</span>
+    </header>
+
+    <!-- Site Status Banner -->
+    <div id="siteStatusBanner" class="site-status-banner">
+      <span class="status-dot"></span>
+      <span id="siteStatusText" class="status-text">Detecting active page...</span>
+    </div>
+
+    <!-- State Override Section -->
+    <section class="settings-section">
+      <label for="stateOverride" class="section-label">
+        <span>Buyer State Override</span>
+        <span class="badge-hint">Recalculates Instantly</span>
+      </label>
+      <p class="section-description">
+        Calculate taxes based on your home registration state instead of the selling dealer's state.
+      </p>
+      <div class="select-wrapper">
+        <select id="stateOverride" class="custom-select">
+          <option value="">Auto-detect from listing (Default)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Supported Marketplace Toggles -->
+    <section class="settings-section">
+      <h2 class="section-label">Supported Marketplaces</h2>
+      <div class="toggle-list">
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-name">Cars.com</span>
+            <span class="toggle-sub">Search & vehicle details</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="toggleCars" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-name">Autotrader</span>
+            <span class="toggle-sub">Search & vehicle details</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="toggleAutotrader" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-name">CarGurus</span>
+            <span class="toggle-sub">Search & vehicle details</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="toggleCarGurus" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy & Trust Guarantee -->
+    <section class="trust-card">
+      <div class="trust-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span>100% Private & Client-Side</span>
+      </div>
+      <p class="trust-text">
+        Zero analytics. Zero tracking. No data leaves your machine. All tax math runs locally from a bundled static asset.
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="popup-footer">
+      <span>Tax dataset provided by <strong class="brand-sub">CarTaxHub</strong></span>
+    </footer>
+  </div>
+
+  <script src="../data/tax-data.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
